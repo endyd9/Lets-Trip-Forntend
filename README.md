@@ -7,6 +7,11 @@
 여행 후기 커뮤니티 프로젝트
 TypeScript, Create-React-Native-App, TailWindCSS
 
+## ToDo
+
+1.게시글 crud  
+2.로그인
+
 ## 스크린 명세
 
 ### 하단 메뉴바(Bottom-Tap Navigator)
