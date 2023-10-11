@@ -47,7 +47,7 @@ export default function Home({ navigation }) {
     <View className="w-full h-full flex flex-cols items-center bg-gray-200">
       {!loading ? (
         <>
-          <View className="mt-16 w-full ios:mb-20 android:mb-16 android:h-2/5 ios:h-2/5 bg-gray-300 flex-row">
+          <View className="mt-16 w-full ios:mb-[10%] android:mb-16 android:h-2/5 ios:h-2/5 bg-gray-300 flex-row">
             <Swiper
               loop={true}
               timeout={5}
@@ -85,7 +85,11 @@ export default function Home({ navigation }) {
             >
               {data.mostLiked.map((post) => (
                 <TouchableOpacity
-                  onPress={() => console.log(post.id)}
+                  onPress={() =>
+                    navigation.navigate("post", {
+                      postId: post.id,
+                    })
+                  }
                   key={post.id}
                 >
                   <Image
@@ -99,13 +103,15 @@ export default function Home({ navigation }) {
               ))}
             </Swiper>
           </View>
-          <Text className="text-2xl android:text-xl mb-3 mr-64">
-            최근 게시글
-          </Text>
-          <View className="w-[90%] border-2 my-3 rounded-md">
+          <Text className="text-2xl android:text-xl mb-3 ">최근 게시글</Text>
+          <View className="mx-5 border-2 my-2 rounded-md">
             {data?.newest?.map((post) => (
               <TouchableOpacity
-                onPress={() => console.log(post.id)}
+                onPress={() =>
+                  navigation.navigate("post", {
+                    postId: post.id,
+                  })
+                }
                 key={post.id}
                 className="flex-row w-full border-b py-3"
               >

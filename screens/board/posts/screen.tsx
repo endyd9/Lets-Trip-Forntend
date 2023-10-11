@@ -1,3 +1,4 @@
+import { NavigationProp } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
@@ -49,9 +50,14 @@ export default function Posts({ navigation, route }) {
         </View>
         {!loading ? (
           <ScrollView className="mx-5 px-5 py-5 h-[90%] border rounded-lg">
-            {data.posts.map((board, index) => (
+            {data.posts.map((post, index) => (
               <TouchableOpacity
-                key={board.id}
+                onPress={() =>
+                  navigation.navigate("post", {
+                    postId: post.id,
+                  })
+                }
+                key={post.id}
                 className={
                   index !== data.posts.length - 1
                     ? "flex-row w-full h-10 border-t items-center justify-between px-3"
@@ -59,10 +65,10 @@ export default function Posts({ navigation, route }) {
                 }
               >
                 <View className="w-[70%] border-r">
-                  <Text className="ios:text-xl">{board.title}</Text>
+                  <Text className="ios:text-xl">{post.title}</Text>
                 </View>
                 <View className="w-[35%] items-center">
-                  <Text className="ios:text-xl">{board.nickName}</Text>
+                  <Text className="ios:text-xl">{post.nickName}</Text>
                 </View>
               </TouchableOpacity>
             ))}
