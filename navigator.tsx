@@ -3,8 +3,8 @@ import Post from "./screens/board/posts/detail/screen";
 import Posts from "./screens/board/posts/screen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as solidIcons from "react-native-heroicons/solid";
 import * as outlineIcons from "react-native-heroicons/outline";
 import Board from "./screens/board/screen";
@@ -15,6 +15,8 @@ import Top from "./screens/top";
 import Header from "./components/header";
 import LoginAndJoin from "./screens/login_join";
 import WritePost from "./screens/board/posts/write";
+import { userSlice } from "./store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -74,6 +76,20 @@ const TabNav = () => {
 
 export default function Navigator() {
   const [title, setTitle] = useState("Home");
+  const dispatch = useDispatch();
+  const getData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (token !== null) {
+        dispatch(userSlice.actions.login(token));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData()
+  }, [])
   return (
     <NavigationContainer>
       <Header title={title} />

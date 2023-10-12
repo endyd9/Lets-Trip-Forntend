@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface LoginResponse {
   ok: boolean;
@@ -60,9 +61,9 @@ const Login = ({ pageChange }: PageProps) => {
         } else {
           console.log(res.error.message);
         }
-
         throw new Error();
       }
+      await AsyncStorage.setItem("token", res.token);
       Alert.alert("로그인", "로그인 되었습니다.");
       dispatch(userSlice.actions.login(res.token));
     } catch (error) {

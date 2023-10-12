@@ -1,5 +1,5 @@
-import { Provider } from "react-redux";
-import { store } from "./store";
+import { Provider, useDispatch } from "react-redux";
+import { store, userSlice } from "./store";
 import Navigator from "./navigator";
 
 export default function App() {
