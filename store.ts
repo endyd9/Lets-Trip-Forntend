@@ -4,21 +4,39 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     value: {
-      isLogedIn: false,
+      isLoggedin: false,
       token: null,
     },
   },
   reducers: {
     login: (state, token) => {
       state.value = {
-        isLogedIn: true,
+        isLoggedin: true,
         token,
       };
     },
     logout: (state) => {
       state.value = {
-        isLogedIn: false,
+        isLoggedin: false,
         token: null,
+      };
+    },
+  },
+});
+
+export const nomemSlice = createSlice({
+  name: "nomem",
+  initialState: {
+    value: {
+      nickName: "",
+      password: "",
+    },
+  },
+  reducers: {
+    save: (state, { nickName, password }: any) => {
+      state.value = {
+        nickName,
+        password,
       };
     },
   },
@@ -26,6 +44,6 @@ export const userSlice = createSlice({
 
 export const store = configureStore({
   reducer: {
-    reducer: userSlice.reducer,
+    users: userSlice.reducer,
   },
 });

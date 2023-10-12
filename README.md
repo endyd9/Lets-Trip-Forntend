@@ -9,8 +9,8 @@ TypeScript, Create-React-Native-App, TailWindCSS
 
 ## ToDo
 
-1.로그인  
-2.게시글 crud
+1.게시글 crud
+2.top10 3.검색 페이지 4.마이페이지
 
 ## 스크린 명세
 

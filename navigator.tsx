@@ -9,17 +9,18 @@ import * as solidIcons from "react-native-heroicons/solid";
 import * as outlineIcons from "react-native-heroicons/outline";
 import Board from "./screens/board/screen";
 import Home from "./screens/home";
-import Login from "./screens/login";
 import My from "./screens/my-page";
 import Search from "./screens/search";
 import Top from "./screens/top";
 import Header from "./components/header";
+import LoginAndJoin from "./screens/login_join";
+import WritePost from "./screens/board/posts/write";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNav = () => {
-  const { isLogedIn } = useSelector((state: any) => state.reducer.value);
+  const { isLoggedin } = useSelector((state: any) => state.users.value);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -66,7 +67,7 @@ const TabNav = () => {
       <Tab.Screen name="Board" component={Board} />
       <Tab.Screen name="Top" component={Top} />
       <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="My" component={isLogedIn ? My : Login} />
+      <Tab.Screen name="My" component={isLoggedin ? My : LoginAndJoin} />
     </Tab.Navigator>
   );
 };
@@ -83,6 +84,7 @@ export default function Navigator() {
         <Stack.Screen name="Tabs" component={TabNav} />
         <Stack.Screen name="posts" component={Posts} />
         <Stack.Screen name="post" component={Post} />
+        <Stack.Screen name="postWrite" component={WritePost} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -34,8 +34,8 @@ export default function Board({ navigation }) {
   }, []);
 
   return (
-    <View className="w-full h-full">
-      <View className="mt-10">
+    <View className="w-full h-full bg-gray-200">
+      <View className="mt-5">
         <View className="flex-row justify-between mx-5">
           <Text className="text-xl ios:text-2xl">게시판 목록</Text>
           <TouchableOpacity
