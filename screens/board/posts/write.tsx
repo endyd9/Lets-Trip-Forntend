@@ -139,7 +139,6 @@ export default function WritePost({ navigation, route }) {
               placeholderTextColor={"#8b8787"}
               multiline
               numberOfLines={15}
-              autoFocus
               value={content}
               onChange={(
                 event: NativeSyntheticEvent<TextInputChangeEventData>

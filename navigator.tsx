@@ -80,16 +80,18 @@ export default function Navigator() {
   const getData = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
+      const userId = await AsyncStorage.getItem("userId");
       if (token !== null) {
         dispatch(userSlice.actions.login(token));
+        dispatch(userSlice.actions.userId(+userId));
       }
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
   return (
     <NavigationContainer>
       <Header title={title} />

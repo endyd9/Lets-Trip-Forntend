@@ -16,7 +16,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface LoginResponse {
   ok: boolean;
-  token: string;
+  token?: string;
+  userId?: number;
   error?: Error;
 }
 
@@ -64,8 +65,10 @@ const Login = ({ pageChange }: PageProps) => {
         throw new Error();
       }
       await AsyncStorage.setItem("token", res.token);
+      await AsyncStorage.setItem("userId", res.userId + "");
       Alert.alert("로그인", "로그인 되었습니다.");
       dispatch(userSlice.actions.login(res.token));
+      dispatch(userSlice.actions.userId(res.userId));
     } catch (error) {
       console.log(error.messga);
       Alert.alert("로그인 실패", "로그인에 실패했습니다");
@@ -226,11 +229,11 @@ const Join = ({ pageChange }: PageProps) => {
               프로필 사진
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity className="w-full h-9 bg-blue-400 rounded-full items-center justify-center">
-            <Text
-              className="text-xl ios:text-2xl text-white font-semibold"
-              onPress={onJoinTouch}
-            >
+          <TouchableOpacity
+            className="w-full h-9 bg-blue-400 rounded-full items-center justify-center"
+            onPress={onJoinTouch}
+          >
+            <Text className="text-xl ios:text-2xl text-white font-semibold">
               Join
             </Text>
           </TouchableOpacity>
