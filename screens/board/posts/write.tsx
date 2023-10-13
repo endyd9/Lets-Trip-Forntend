@@ -13,7 +13,7 @@ import {
 import { useSelector } from "react-redux";
 
 export default function WritePost({ navigation, route }) {
-  const { isLoggedin, token } = useSelector((state: any) => state.users.value);
+  const { isLoggedIn, token } = useSelector((state: any) => state.users.value);
 
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -28,7 +28,7 @@ export default function WritePost({ navigation, route }) {
       return Alert.alert("알림", "내용을 입력하세요.");
     }
     try {
-      if (isLoggedin) {
+      if (isLoggedIn) {
         const res = await (
           await fetch(
             `${process.env.EXPO_PUBLIC_BACK_END}/boards/${route.params.boardId}`,
@@ -93,7 +93,7 @@ export default function WritePost({ navigation, route }) {
             <Text className="text-xl ios:text-2xl">게시글 작성</Text>
           </View>
           <View className="mx-5 px-5 py-3 h-[90%] border rounded-lg">
-            {!isLoggedin && (
+            {!isLoggedIn && (
               <View className="flex-row justify-between border-b-2 mb-3">
                 <TextInput
                   className="border h-10 w-[45%] rounded-md pl-1 mb-3"

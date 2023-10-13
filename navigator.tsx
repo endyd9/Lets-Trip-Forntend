@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNav = () => {
-  const { isLoggedin } = useSelector((state: any) => state.users.value);
+  const { isLoggedIn } = useSelector((state: any) => state.users.value);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -69,7 +69,7 @@ const TabNav = () => {
       <Tab.Screen name="Board" component={Board} />
       <Tab.Screen name="Top" component={Top} />
       <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="My" component={isLoggedin ? My : LoginAndJoin} />
+      <Tab.Screen name="My" component={isLoggedIn ? My : LoginAndJoin} />
     </Tab.Navigator>
   );
 };

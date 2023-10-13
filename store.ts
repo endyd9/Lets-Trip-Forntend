@@ -9,7 +9,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     value: {
-      isLoggedin: false,
+      isLoggedIn: false,
       token: null,
       userId: null,
     },
@@ -18,7 +18,7 @@ export const userSlice = createSlice({
     login: (state, token) => {
       state.value = {
         ...state.value,
-        isLoggedin: true,
+        isLoggedIn: true,
         token,
       };
     },
@@ -30,7 +30,7 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.value = {
-        isLoggedin: false,
+        isLoggedIn: false,
         token: null,
         userId: null,
       };
