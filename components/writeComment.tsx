@@ -12,6 +12,7 @@ interface WriteCommentProps {
   isLoggedIn: boolean;
   postId: number;
   token: any;
+  setNewComment: Function;
 }
 
 interface WriteCommentData {
@@ -24,6 +25,7 @@ export default function WriteComment({
   isLoggedIn,
   postId,
   token,
+  setNewComment,
 }: WriteCommentProps) {
   const [nickName, setNickName] = useState<string>("");
   const [commentPass, setCommentPass] = useState<string>("");
@@ -37,20 +39,26 @@ export default function WriteComment({
       commentData.nomem = nickName;
       commentData.password = commentPass;
     }
-    console.log(token);
-
-    const { ok } = await (
-      await fetch(`${process.env.EXPO_PUBLIC_BACK_END}/comments/${postId}`, {
-        method: "post",
-        headers: {
-          "Content-type": "Application/json",
-          token: token.payload,
-        },
-        body: JSON.stringify(commentData),
-      })
-    ).json();
-
-    console.log(ok);
+    try {
+      const { ok, error, newComment } = await (
+        await fetch(`${process.env.EXPO_PUBLIC_BACK_END}/comments/${postId}`, {
+          method: "post",
+          headers: {
+            "Content-type": "Application/json",
+            token: token.payload,
+          },
+          body: JSON.stringify(commentData),
+        })
+      ).json();
+      if (!ok) {
+        throw new Error(error);
+      }
+      setNewComment(newComment);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setComment("");
+    }
   };
 
   return !isLoggedIn ? (

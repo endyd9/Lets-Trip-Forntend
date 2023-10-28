@@ -108,6 +108,10 @@ export default function Post({ route }) {
     }
   };
 
+  const setNewComment = (newComment: CommentData) => {
+    setCommentData([newComment, ...commentData]);
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -220,6 +224,7 @@ export default function Post({ route }) {
               isLoggedIn={isLoggedIn}
               postId={postId}
               token={token}
+              setNewComment={setNewComment}
             />
 
             {commentData.length > 0 ? (
