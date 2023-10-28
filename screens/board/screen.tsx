@@ -19,7 +19,7 @@ export default function Board({ navigation }) {
   const getData = async () => {
     try {
       const res: BoardsData = await (
-        await fetch("http://192.168.45.17:4000/boards")
+        await fetch(`${process.env.EXPO_PUBLIC_BACK_END}/boards`)
       ).json();
       setData({ ...res });
     } catch (error) {

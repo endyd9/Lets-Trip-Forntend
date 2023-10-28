@@ -46,7 +46,7 @@ export default function Posts({ navigation, route }) {
     try {
       const res: BoardData = await (
         await fetch(
-          `http://192.168.45.17:4000/boards/${boardId}?page=${page}&sort=${sort}`
+          `${process.env.EXPO_PUBLIC_BACK_END}/boards/${boardId}?page=${page}&sort=${sort}`
         )
       ).json();
       setData({ ...res });

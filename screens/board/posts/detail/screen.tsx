@@ -64,7 +64,9 @@ export default function Post({ route }) {
 
   const [commentData, setCommentData] = useState<CommentData[]>();
 
-  const { isLoggedIn, userId } = useSelector((state: any) => state.users.value);
+  const { isLoggedIn, userId, token } = useSelector(
+    (state: any) => state.users.value
+  );
   const [isMy, setIsMy] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
@@ -160,52 +162,44 @@ export default function Post({ route }) {
               </Text>
             </TouchableOpacity>
           </View>
-          <View className="w-full h-64 border-t-2 py-5">
-            <Swiper
-              loop={true}
-              timeout={5}
-              controlsProps={{
-                prevTitle: "<",
-                nextTitle: ">",
-                dotsTouchable: true,
-                dotsPos: "bottom",
-                prevPos: false,
-                nextPos: false,
-                nextTitleStyle: {
-                  color: "white",
-                  backgroundColor: "black",
-                  fontSize: 30,
-                  width: 30,
-                  height: 30,
-                  textAlign: "center",
-                  borderRadius: 100,
-                  lineHeight: 32,
-                  overflow: "hidden",
-                },
-                prevTitleStyle: {
-                  color: "white",
-                  backgroundColor: "black",
-                  fontSize: 30,
-                  width: 30,
-                  height: 30,
-                  textAlign: "center",
-                  borderRadius: 100,
-                  borderBottomLeftRadius: 100,
-                  lineHeight: 32,
-                  overflow: "hidden",
-                },
-              }}
-            >
-              {postData.imgUrl ? (
-                // postData.imgUrl.map((image) => (
-                //     <Image
-                //       className="w-full h-full"
-                //       source={{
-                //         uri: image,
-                //       }}
-                //       resizeMode="cover"
-                //     />
-                //   ))
+
+          {postData.imgUrl ? (
+            <View className="w-full h-64 border-t-2 py-5">
+              <Swiper
+                loop={true}
+                timeout={5}
+                controlsProps={{
+                  prevTitle: "<",
+                  nextTitle: ">",
+                  dotsTouchable: true,
+                  dotsPos: "bottom",
+                  prevPos: false,
+                  nextPos: false,
+                  nextTitleStyle: {
+                    color: "white",
+                    backgroundColor: "black",
+                    fontSize: 30,
+                    width: 30,
+                    height: 30,
+                    textAlign: "center",
+                    borderRadius: 100,
+                    lineHeight: 32,
+                    overflow: "hidden",
+                  },
+                  prevTitleStyle: {
+                    color: "white",
+                    backgroundColor: "black",
+                    fontSize: 30,
+                    width: 30,
+                    height: 30,
+                    textAlign: "center",
+                    borderRadius: 100,
+                    borderBottomLeftRadius: 100,
+                    lineHeight: 32,
+                    overflow: "hidden",
+                  },
+                }}
+              >
                 <Image
                   className="w-full h-full"
                   source={{
@@ -213,28 +207,25 @@ export default function Post({ route }) {
                   }}
                   resizeMode="cover"
                 />
-              ) : null}
-            </Swiper>
-          </View>
+              </Swiper>
+            </View>
+          ) : null}
+
           <View className="border-t-2 border-b-2 py-10">
             <Text>{postData.content}</Text>
           </View>
           <View className="pb-10">
             <Text className="text-xl my-3">댓글({commentData.length})</Text>
-            <WriteComment isLoggedIn={isLoggedIn} />
-            <View className="flex-row justify-between mb-2">
-              <TextInput className="w-[70%] border rounded-lg h-12" multiline />
-              <TouchableOpacity className="w-[25%] items-center justify-center border border-blue-400 rounded-xl">
-                <Text className="text-blue-400 font-bold">댓글달기</Text>
-              </TouchableOpacity>
-            </View>
+            <WriteComment
+              isLoggedIn={isLoggedIn}
+              postId={postId}
+              token={token}
+            />
+
             {commentData.length > 0 ? (
               commentData.map((comment) => (
-                <View>
-                  <View
-                    key={comment.id}
-                    className="flex-row justify-between my-2 border-t pt-3 px-5"
-                  >
+                <View key={comment.id}>
+                  <View className="flex-row justify-between my-2 border-t pt-3 px-5">
                     <Text>{comment.content}</Text>
                     {comment.writer ? (
                       <Text>{comment.writer.nickName}</Text>

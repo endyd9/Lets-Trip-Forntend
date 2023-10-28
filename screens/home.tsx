@@ -29,7 +29,7 @@ export default function Home({ navigation }) {
   const getData = async () => {
     try {
       const res: HomeDataResponse = await (
-        await fetch("http://192.168.45.17:4000/")
+        await fetch(process.env.EXPO_PUBLIC_BACK_END)
       ).json();
       setData({ ...res });
     } catch (error) {
