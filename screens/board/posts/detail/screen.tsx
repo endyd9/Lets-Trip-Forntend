@@ -12,6 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import WriteComment from "../../../../components/writeComment";
 import Swiper from "react-native-web-swiper";
+import Comment from "../../../../components/comment";
 
 interface PostData {
   boardId: number;
@@ -35,19 +36,7 @@ export interface CommentData {
   id: number;
   createdAt: string;
   content: string;
-  reply?: [
-    {
-      id: number;
-      content: string;
-      writer?: {
-        id: number;
-        nickName: string;
-        avatarUrl: string;
-      };
-      nomem?: string;
-      password?: string;
-    }
-  ];
+  reply?: IReply[];
   writer?: {
     id: number;
     avatarUrl: string;
@@ -55,6 +44,18 @@ export interface CommentData {
   };
   nomem?: string;
   password: string;
+}
+
+export interface IReply {
+  id: number;
+  content: string;
+  writer?: {
+    id: number;
+    nickName: string;
+    avatarUrl: string;
+  };
+  nomem?: string;
+  password?: string;
 }
 
 export default function Post({ route }) {
@@ -220,40 +221,11 @@ export default function Post({ route }) {
           </View>
           <View className="pb-10">
             <Text className="text-xl my-3">댓글({commentData.length})</Text>
-            <WriteComment
-              isLoggedIn={isLoggedIn}
-              postId={postId}
-              token={token}
-              setNewComment={setNewComment}
-            />
+            <WriteComment postId={postId} setNewComment={setNewComment} />
 
             {commentData.length > 0 ? (
               commentData.map((comment) => (
-                <View key={comment.id}>
-                  <View className="flex-row justify-between my-2 border-t pt-3 px-5">
-                    <Text>{comment.content}</Text>
-                    {comment.writer ? (
-                      <Text>{comment.writer.nickName}</Text>
-                    ) : (
-                      <Text>{comment.nomem}</Text>
-                    )}
-                  </View>
-                  {comment.reply
-                    ? comment.reply.map((reply) => (
-                        <View
-                          key={`${comment.id}/${reply.id}`}
-                          className="flex-row justify-between pt-3 px-10"
-                        >
-                          <Text> L {reply.content}</Text>
-                          {reply.writer ? (
-                            <Text>{reply.writer.nickName}</Text>
-                          ) : (
-                            <Text>{reply.nomem}</Text>
-                          )}
-                        </View>
-                      ))
-                    : null}
-                </View>
+                <Comment key={comment.id} comment={comment} />
               ))
             ) : (
               <Text className="text-center text-lg border-t pt-16 mt-2">

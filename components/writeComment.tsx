@@ -7,11 +7,10 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { useSelector } from "react-redux";
 
 interface WriteCommentProps {
-  isLoggedIn: boolean;
   postId: number;
-  token: any;
   setNewComment: Function;
 }
 
@@ -22,14 +21,14 @@ interface WriteCommentData {
 }
 
 export default function WriteComment({
-  isLoggedIn,
   postId,
-  token,
   setNewComment,
 }: WriteCommentProps) {
   const [nickName, setNickName] = useState<string>("");
   const [commentPass, setCommentPass] = useState<string>("");
   const [comment, setComment] = useState<string>("");
+
+  const { isLoggedIn, token } = useSelector((state: any) => state.users.value);
 
   const onPressAddComment = async () => {
     let commentData: WriteCommentData = {
