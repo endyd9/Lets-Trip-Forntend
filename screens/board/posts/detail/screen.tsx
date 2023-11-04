@@ -68,7 +68,7 @@ export default function Post({ route }) {
   const { isLoggedIn, userId, token } = useSelector(
     (state: any) => state.users.value
   );
-  const [isMy, setIsMy] = useState<boolean>(false);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
   const [usersPost, setUsersPost] = useState<boolean>(false);
@@ -83,8 +83,8 @@ export default function Post({ route }) {
       setPostData(res.post);
       if (res.post.writer) {
         setUsersPost(true);
-        if (res.post.writer.id === userId) {
-          setIsMy(true);
+        if (res.post.writer.id === userId.payload) {
+          setIsOwner(true);
         }
       }
     } catch (error) {
@@ -144,7 +144,7 @@ export default function Post({ route }) {
           )}
           <View className="flex-row justify-between py-2 border-b-2">
             <Text className="text-xl ios:text-2xl">{postData.title}</Text>
-            {isMy && (
+            {isOwner && (
               <View className="flex-row justify-between w-[45%]">
                 <TouchableOpacity className="items-center justify-center bg-blue-400 rounded-xl py-2 px-3">
                   <Text className="text-lg text-white font-bold">수정 ✏️</Text>

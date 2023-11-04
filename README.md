@@ -9,10 +9,10 @@ TypeScript, Create-React-Native-App, TailWindCSS
 
 ## ToDo
 
-1.댓글 지우기, 대댓글, like
-2.top10  
-3.검색 페이지  
-4.마이페이지
+1. 게시글 수정 삭제, 댓글 수정, 대댓글crud, like  
+   2.top10  
+   3.검색 페이지  
+   4.마이페이지
 
 ## 스크린 명세
 
